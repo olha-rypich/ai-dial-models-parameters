@@ -11,11 +11,24 @@ from task.app.main import run
 # - claude-3-7-sonnet@20250219
 # - gemini-2.5-pro
 
-run(
-    deployment_name='INSERT_DEPLOYMENT_NAME',
-    print_request=False, # Switch to False if you do not want to see the request in console
-    print_only_content=False, # Switch to True if you want to see only content from response
-)
-
 # The main goal of this task is to explore the functional capabilities of DIAL to be able to work with different
 # LLMs through unified API
+
+models = [
+    'gpt-4o',
+    'claude-3-7-sonnet@20250219',
+    'gemini-2.5-pro'
+]
+
+for model in models:
+    print(f"\n--- Testing model: {model} ---")
+    try:
+        run(
+            deployment_name=model,
+            print_request=False,
+            print_only_content=True,
+        )
+    except Exception as e:
+        print(f"Error for model '{model}': {e}")
+        print("Proceeding to the next model...\n")
+    print(f"--- Finished testing model: {model} ---\n")

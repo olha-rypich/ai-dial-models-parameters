@@ -5,10 +5,24 @@ from task.app.main import run
 #        and determinism. Range: 0.0 to 2.0, Default: 1.0
 #  User massage: Describe the sound that the color purple makes when it's angry
 
-run(
-    deployment_name='gpt-4o',
-    print_only_content=True,
-    # TODO:
-    #  Use `temperature` parameter with value in range from 0.0 to 1.0!
-    #  (Optional) Use `temperature` parameter with value 2.1 and check what happens
-)
+# run(
+#     deployment_name='gpt-4o',
+#     print_only_content=True,
+#     # TODO:
+#     #  Use `temperature` parameter with value in range from 0.0 to 1.0!
+#     #  (Optional) Use `temperature` parameter with value 2.1 and check what happens
+# )
+
+temperatures = [0.0, 0.2, 0.5, 0.8, 1.0, 2.1]
+
+for temp in temperatures:
+    print(f"\n--- Testing temperature={temp} ---")
+    try:
+        run(
+            deployment_name='gpt-4o',
+            print_only_content=True,
+            temperature=temp
+        )
+    except Exception as e:
+        print(f"Error with temperature={temp}: {e}")
+    print(f"--- Finished testing temperature={temp} ---\n")
